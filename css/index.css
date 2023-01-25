@@ -1,0 +1,48 @@
+body{
+    background-image: url('../images/background.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 1400px;
+}
+
+.title{
+    
+}
+
+nav{
+    display: flex;
+    background-color: #238A71;
+    padding:5px;
+}
+
+.rightnav{
+    float: right;
+    margin-left: 70em;
+    display: inline-block;
+}
+
+.loginButton{
+    width: 248px;
+    height: 67px;
+    display: inline-block;
+
+    background: #72CDD2;
+    border-radius: 25px;
+}
+
+.registerButton{
+    width: 248px;
+    height: 67px;
+    display: inline-block;
+    background: #75E1BB;
+    border-radius: 25px;
+}
+
+.loginButton:hover{
+    background: #4EBAC1
+}
+
+.registerButton:hover{
+    background: #56CCA2
+}
