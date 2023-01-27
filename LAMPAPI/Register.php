@@ -31,7 +31,7 @@
 		}
 		// otherwise, throw an error
 		else{
-			returnWithError("Username taken.");
+			returnWithError("Username taken");
 		}
 
 
@@ -50,7 +50,7 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"message": "User created successfully", "error":"' . $err . '"}';
+		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
