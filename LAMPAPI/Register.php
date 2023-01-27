@@ -31,6 +31,8 @@
 		}
 		// otherwise, throw an error
 		else{
+			$stmt->close();
+			$conn->close();
 			returnWithError("Username taken");
 		}
 
