@@ -12,8 +12,8 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("delete from Contacts where firstName like ? and lastName like ? and userId=?");
-		$stmt->bind_param("ssi", $inData["firstName"], $inData["lastName"], $inData["userId"]);
+		$stmt = $conn->prepare("delete from Contacts where id=?");
+		$stmt->bind_param("i", $inData["id"]);
 		$stmt->execute();
 		
 		$stmt->close();
