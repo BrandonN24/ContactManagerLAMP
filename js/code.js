@@ -14,7 +14,13 @@ function doLogin()
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
 //	var hash = md5( password );
+
+	if(!validLogin(login, password))
+	{
+		document.getElementById("loginResult").innerHTML = "Empty Textboxs";
+	}
 	
+	//clears login result
 	document.getElementById("loginResult").innerHTML = "";
 
 	let tmp = {login:login,password:password};
@@ -46,7 +52,7 @@ function doLogin()
 
 				saveCookie();
 	
-				window.location.href = "color.html";
+				window.location.href = "contacts.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -56,6 +62,104 @@ function doLogin()
 		document.getElementById("loginResult").innerHTML = err.message;
 	}
 
+}
+
+function doRegister()
+{
+	firstName = document.getElementById("FName");
+	lastName = document.getElementById("LName");
+	let userName = document.getElementById("regName");
+	let password = document.getElementById("regPassword");
+
+	if (!validRegister(firstName, lastName, userName, password))
+	{
+		//invalid login empty text fields
+		document.getElementById("registerResult").innerHTML = "Empty Textboxs";
+		return;
+	}
+
+	document.getElementById("registerResult").innerHTML = "";
+
+	//JSON
+	var tmp = 
+	{
+		firstName:firstName,
+		lastName:lastName,
+		login: userName,
+		password: password
+	};
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/Register.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				let jsonObject = JSON.parse( xhr.responseText );
+				userId = jsonObject.id;
+				document.getElementById("regResult").innerHTML = "Register Complete"
+				firstName = jsonObject.firstName;
+				lastName = jsonObject.lastName;
+	
+				saveCookie();
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("regResult").innerHTML = err.message;
+	}
+
+}
+
+function validLogin(logUser, logPass)
+{
+	var correctField = true;
+	if (logUser = "")
+	{
+		console.log("Empty Username");
+		correctField = false;
+	}
+
+	if (logPass = "")
+	{
+		console.log("Empty Password");
+		correctField = false;
+	}
+	return correctField;
+}
+
+function validRegister(regfName,reglName, regUser, regPass)
+{
+	var correctField = true;
+	if (regUser = "")
+	{
+		console.log("Empty Username");
+		correctField = false;
+	}
+	if (regfName = "")
+	{
+		console.log("Empty First Name");
+		correctField = false;
+	}
+	if (reglName = "")
+	{
+		console.log("Empty Last Name");
+		correctField = false;
+	}
+	if (regPass = "")
+	{
+		console.log("Empty Password");
+		correctField = false;
+	}
+	return correctField;
 }
 
 function saveCookie()
