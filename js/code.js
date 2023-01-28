@@ -18,6 +18,7 @@ function doLogin()
 	if(!validLogin(login, password))
 	{
 		document.getElementById("loginResult").innerHTML = "Empty Textboxs";
+		return;
 	}
 	
 	//clears login result
@@ -66,10 +67,10 @@ function doLogin()
 
 function doRegister()
 {
-	firstName = document.getElementById("FName");
-	lastName = document.getElementById("LName");
-	let userName = document.getElementById("regName");
-	let password = document.getElementById("regPassword");
+	firstName = document.getElementById("FName").value;
+	lastName = document.getElementById("LName").value;
+	let userName = document.getElementById("regName").value;
+	let password = document.getElementById("regPassword").value;
 
 	if (!validRegister(firstName, lastName, userName, password))
 	{
@@ -81,13 +82,13 @@ function doRegister()
 	document.getElementById("registerResult").innerHTML = "";
 
 	//JSON
-	var tmp = 
-	{
+	let tmp = {
 		firstName:firstName,
 		lastName:lastName,
 		login: userName,
 		password: password
 	};
+
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/Register.' + extension;
@@ -101,9 +102,10 @@ function doRegister()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
+				console.log(jsonPayload);
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
-				document.getElementById("regResult").innerHTML = "Register Complete"
+				document.getElementById("regResult").innerHTML = "Register Complete";
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 	
@@ -122,13 +124,13 @@ function doRegister()
 function validLogin(logUser, logPass)
 {
 	var correctField = true;
-	if (logUser = "")
+	if (logUser == "")
 	{
 		console.log("Empty Username");
 		correctField = false;
 	}
 
-	if (logPass = "")
+	if (logPass == "")
 	{
 		console.log("Empty Password");
 		correctField = false;
@@ -139,22 +141,22 @@ function validLogin(logUser, logPass)
 function validRegister(regfName,reglName, regUser, regPass)
 {
 	var correctField = true;
-	if (regUser = "")
+	if (regUser == "")
 	{
 		console.log("Empty Username");
 		correctField = false;
 	}
-	if (regfName = "")
+	if (regfName == "")
 	{
 		console.log("Empty First Name");
 		correctField = false;
 	}
-	if (reglName = "")
+	if (reglName == "")
 	{
 		console.log("Empty Last Name");
 		correctField = false;
 	}
-	if (regPass = "")
+	if (regPass == "")
 	{
 		console.log("Empty Password");
 		correctField = false;
