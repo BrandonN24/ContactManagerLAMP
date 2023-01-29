@@ -5,7 +5,20 @@ body{
     height: 1024px;
     background: linear-gradient(180deg, #75E1BB 0%, #1A2F2B 100%);
     }
-    
+
+nav{
+    margin: 0 auto 100px;
+    display: flex;
+    background-color: #238A71;
+    padding:5px;
+
+}
+
+nav button{
+    position: relative;
+    left: 980px;
+    bottom: 0px;
+}
     h1{
     margin: 0 auto;
     font-family: 'Lato';
