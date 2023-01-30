@@ -14,14 +14,24 @@ nav{
     padding:5px;
 }
 
-.logoutButton{
-    width: 180px;
-    height: 67px;
+nav Button{
+    position: relative;
+    left: 1047px;
+    bottom: 0px;
+    width: 152px;
+    height: 61px;
     display: inline-block;
-    font-size: 34px;
-    background: #72CDD2;
+    font-size: 36px;
+    background: #75E1BB;
     color: black;
-    border-radius: 25px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px 0 rgb(0, 0, 0), 0 5px 5px 0 rgba(0, 0, 0, 0.521);
+}
+
+nav button:hover{
+    background: #02532d;
+    color: #FFFFFF;
+
 }
     
 h1{
@@ -58,6 +68,7 @@ form button{
     width: 80px;
     font-size: 20px;
     border-radius: 15px;
+    box-shadow: 0 0 20px 0 rgb(0, 0, 0), 0 5px 5px 0 rgba(0, 0, 0, 0.521);
 }
 
 
@@ -91,6 +102,7 @@ button{
     width: 120px;
     height:50px;
     font-size: 30px;
+    font-family: 'Lato';
     color: white;
     background:  #238A71;
     border-radius: 15px;

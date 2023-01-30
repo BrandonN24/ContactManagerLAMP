@@ -5,6 +5,23 @@ body{
     height: 1024px;
     background: linear-gradient(180deg, #72CDD2 0%, #1B322E 100%);
     }
+
+    nav{
+        margin: 0 auto 100px;
+        display: flex;
+        background-color: #0835af;
+        padding:5px;
+    }
+    
+    nav button{
+        position: relative;
+        left: 885px;
+        bottom: 0px;
+    }
+
+    h2{
+        color: #FFFFFF;
+    }
     
     h1{
     margin: 0 auto;
