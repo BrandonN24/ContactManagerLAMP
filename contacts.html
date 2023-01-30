@@ -5,8 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/contacts.css" />
+    <script type="text/javascript" src="js/code.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
     <title>Document</title>
+
+    <script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function() 
+	{
+		readCookie();
+	}, false);
+	</script>
 </head>
 <body>
     <nav>
@@ -14,7 +22,7 @@
 		<div class="rightnav">
 			<button onclick="location.href = 'index.html';" class="logoutButton">Sign Out</button>
 		</div>
-		
+
 	</nav>
     
 <h1>Contacts</h1>
@@ -22,8 +30,8 @@
 <div class="searchbar">
     <form>
         <input type="text" placeholder="Name">
-        <button type="searchbutton">Search</button>
-        <button type="addbutton">Add</button>
+        <input type="button" onclick ="console.log('Button pressed');" value = 'Search'>
+        <input type="button" onclick="location.href = 'addContact.html';" value = 'Add Contact'>
     </form>
 </div>
 

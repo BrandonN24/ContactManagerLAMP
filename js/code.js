@@ -121,6 +121,53 @@ function doRegister()
 
 }
 
+function addContact()
+{
+	firstName = document.getElementById("FName").value;
+	lastName = document.getElementById("LName").value;
+	let phoneNumber = document.getElementById("PNumber").value;
+	let emailAdd = document.getElementById("EAddress").value;
+
+	//make sure that it is valid
+
+	document.getElementById("addContactResult").innerHTML = "";
+
+	let tmp = 
+	{
+		userId:userId,
+		firstName:firstName,
+		lastName:lastName,
+		phone:phoneNumber,
+		email:emailAdd
+	};
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/AddContact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				console.log(jsonPayload); //Debug
+				document.getElementById("addContactResult").innerHTML = "Added Contact";
+	
+				saveCookie();
+
+			}
+		};
+		xhr.send(jsonPayload);
+
+	}catch(err)
+	{
+		document.getElementById("addContactResult").innerHTML = err.message;
+	}
+}
+
 function validLogin(logUser, logPass)
 {
 	var correctField = true;
@@ -201,7 +248,7 @@ function readCookie()
 	}
 	else
 	{
-		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+		console.log("Logged in as " + firstName + " " + lastName) ;
 	}
 }
 

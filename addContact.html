@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/addContact.css"/>
+	<script type="text/javascript" src="js/code.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() 
+		{
+			readCookie();
+		}, false);
+		</script>
 
 </head>
 
@@ -23,7 +31,7 @@
 	<input type="text" id="EAddress"/><br />
 
 
-	<button type="button" id="addContactButton" class="buttons" onclick="doAddContact();"> Add </button>
+	<button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add </button>
 	<span id="addContactResult"></span>
 </div>
     
