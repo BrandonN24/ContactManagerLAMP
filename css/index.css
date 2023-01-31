@@ -1,48 +1,48 @@
 body{
     background-image: url('../images/background.jpg');
-    background-position: center;
+    margin: 0 auto 100px;
+    background-position: top center; 
     background-size: cover;
     background-repeat: no-repeat;
-    height: 1400px;
-}
-
-.title{
-    
+    background-attachment: fixed;
 }
 
 nav{
+    position: relative;
     display: flex;
     background-color: #238A71;
     padding:5px;
 }
 
-.rightnav{
-    float: right;
-    margin-left: 70em;
-    display: inline-block;
+nav button{
+    position: relative;
+    left: 1335px;
+    bottom: -2px;
+    width: 158px;
+    height: 60px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    box-shadow: 0 0 20px 0 rgb(0, 0, 0), 0 5px 5px 0 rgba(0, 0, 0, 0.521);
 }
 
 .loginButton{
-    width: 248px;
-    height: 67px;
-    display: inline-block;
-
     background: #72CDD2;
-    border-radius: 25px;
+    border-radius: 20px;
+}
+
+.loginButton:hover {
+    background: #0835af;
+    color: #FFFFFF;
 }
 
 .registerButton{
-    width: 248px;
-    height: 67px;
-    display: inline-block;
     background: #75E1BB;
-    border-radius: 25px;
+    border-radius: 20px;
 }
 
-.loginButton:hover{
-    background: #4EBAC1
-}
-
-.registerButton:hover{
-    background: #56CCA2
+.registerButton:hover {
+    background: #02532d;
+    color: #FFFFFF;
 }
