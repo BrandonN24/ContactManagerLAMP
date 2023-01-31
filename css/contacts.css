@@ -48,7 +48,7 @@ h1{
 
 .searchbar{
     margin: 0 auto;
-    width: 500px;
+    width: 600px;
     height: 60px;
     align-items: center;
     border-radius: 15px;
@@ -63,14 +63,37 @@ form input{
     border-radius: 15px;
 }
 
-form button{
+#searchButton{
     height: 35px;
     width: 80px;
     font-size: 20px;
     border-radius: 15px;
+    font-family: 'Lato';
+    color: white;
+    background:  #238A71;
     box-shadow: 0 0 20px 0 rgb(0, 0, 0), 0 5px 5px 0 rgba(0, 0, 0, 0.521);
 }
 
+#searchButton:hover{
+    background-color: #75E1BB;
+    color: black;
+}
+
+#addContactButton{
+    height: 35px;
+    width: 130px;
+    font-size: 20px;
+    border-radius: 15px;
+    font-family: 'Lato';
+    color: white;
+    background:  #238A71;
+    box-shadow: 0 0 20px 0 rgb(0, 0, 0), 0 5px 5px 0 rgba(0, 0, 0, 0.521);
+}
+
+#addContactButton:hover{
+    background-color: #75E1BB;
+    color: black;
+}
 
 .contact-list{
     background: #238A71;;
