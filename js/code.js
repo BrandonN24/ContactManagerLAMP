@@ -15,9 +15,9 @@ function doLogin()
 	let password = document.getElementById("loginPassword").value;
 //	var hash = md5( password );
 
-	if(!validLogin(login, password))
+	if(validLogin(login, password))
 	{
-		document.getElementById("loginResult").innerHTML = "Empty Textboxs";
+		document.getElementById("loginResult").innerHTML = "Invalid Login";
 		return;
 	}
 	
@@ -72,10 +72,10 @@ function doRegister()
 	let userName = document.getElementById("regName").value;
 	let password = document.getElementById("regPassword").value;
 
-	if (!validRegister(firstName, lastName, userName, password))
+	if (validRegister(firstName, lastName, userName, password))
 	{
 		//invalid login empty text fields
-		document.getElementById("registerResult").innerHTML = "Empty Textboxs";
+		document.getElementById("registerResult").innerHTML = "Invalid Login";
 		return;
 	}
 
@@ -128,7 +128,11 @@ function addContact()
 	let phoneNumber = document.getElementById("PNumber").value;
 	let emailAdd = document.getElementById("EAddress").value;
 
-	//make sure that it is valid
+	if (validateNewContact(firstName, lastName, phoneNumber, emailAdd))
+	{
+		document.getElementById("addContactResult").innerHTML = "Invalid New Contact";
+		return;
+	}
 
 	document.getElementById("addContactResult").innerHTML = "";
 
@@ -170,45 +174,132 @@ function addContact()
 
 function validLogin(logUser, logPass)
 {
-	var correctField = true;
+	let logUserErr = logPassErr = false;
 	if (logUser == "")
 	{
 		console.log("Empty Username");
-		correctField = false;
+		logUserErr = true;
 	}
 
 	if (logPass == "")
 	{
 		console.log("Empty Password");
-		correctField = false;
+		logPassErr = true;
 	}
-	return correctField;
+	if ((logUserErr || logPassErr) == true)
+	{
+		return true;
+	}
+	// no error
+	else
+	{
+		return false;
+	}
 }
 
 function validRegister(regfName,reglName, regUser, regPass)
 {
-	var correctField = true;
+	let regfNameErr = reglNameErr = regUserErr = regPassErr = validRegPass = false;
 	if (regUser == "")
 	{
 		console.log("Empty Username");
-		correctField = false;
+		regfNameErr = true;
 	}
 	if (regfName == "")
 	{
 		console.log("Empty First Name");
-		correctField = false;
+		reglNameErr = true;
 	}
 	if (reglName == "")
 	{
 		console.log("Empty Last Name");
-		correctField = false;
+		regUserErr = true;
 	}
 	if (regPass == "")
 	{
 		console.log("Empty Password");
-		correctField = false;
+		regPassErr = true;
 	}
-	return correctField;
+	if (!validatePassword(regPass))
+	{
+		console.log("Invalid Password");
+		document.getElementById("registerResult").innerHTML = 
+			"Password must be 6-20 char with one Uppercase, one lowercase, and one digit";
+		validRegPass = true;
+	}
+	// there is an error
+	if ((regfNameErr || reglNameErr || regUserErr || regPassErr || validRegPass) == true)
+	{
+		return true;
+	}
+	// there is no error
+	else
+	{
+		return false;
+	}
+}
+
+//usable for new Contact and edit Contact
+function validateNewContact(newfName, newlName, newPhone, newEmail)
+{
+	let newfNameErr = newlNameErr = newPhoneErr = newEmailErr = validNewEmailErr = false;
+	if (newfName == "")
+	{
+		console.log("Empty First Name");
+		newfNameErr = true;
+	}
+	if (newlName == "")
+	{
+		console.log("Empty Last Name");
+		newlNameErr = true;
+	}
+	if (newPhone == "")
+	{
+		console.log("Empty Phone Number")
+		newPhoneErr = true;
+	}
+	if (newEmail == "")
+	{
+		console.log("Empty Email");
+		newEmailErr = true;
+	}
+	if (!validateEmail(newEmail))
+	{
+		console.log("Invalid email");
+		document.getElementById("addContactResult").innerHTML = "Invalid Email";
+		validNewEmailErr = true;
+	}
+	console.log(Boolean(newfNameErr || newlNameErr || newPhoneErr || newEmailErr || validNewEmailErr));
+	// there is an error
+	if ((newfNameErr || newlNameErr || newPhoneErr || newEmailErr || validNewEmailErr) == true)
+	{
+		return true;
+	}
+	// no error
+	else
+	{
+		return false;
+	}
+}
+
+function validatePassword(pass)
+{
+	const ret = String(pass).match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/);
+	//debug
+	console.log(Boolean(ret))
+	return Boolean(ret);
+}
+
+function validateEmail(email)
+{
+  	const ret = String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+	//debug
+	console.log(Boolean(ret))
+	return Boolean( ret );
 }
 
 function saveCookie()
@@ -259,37 +350,6 @@ function doLogout()
 	lastName = "";
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
-}
-
-function addColor()
-{
-	let newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
-
-	let tmp = {color:newColor,userId,userId};
-	let jsonPayload = JSON.stringify( tmp );
-
-	let url = urlBase + '/AddColor.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
-	}
-	
 }
 
 function searchColor()
