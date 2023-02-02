@@ -4,6 +4,7 @@ const extension = 'php';
 let userId = 0;
 let firstName = "";
 let lastName = "";
+let userIds = [];
 
 function doLogin()
 {
@@ -178,11 +179,6 @@ function addContact()
 	{
 		document.getElementById("addContactResult").innerHTML = err.message;
 	}
-}
-
-function deleteContact(contactID)
-{
-	
 }
 
 function editContact(contactID)
@@ -374,9 +370,6 @@ function doLogout()
 // Only used to prevent the "Contacts retrieved" message on startup. 
 function searchContact(startup)
 {
-	//document.getElementById("colorSearchResult").innerHTML = "";
-	
-	//let contactList = "";
   let tmp = 
 	{
 		userId:userId,
@@ -396,37 +389,42 @@ function searchContact(startup)
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-        // If the function is run when the page loads, don't display "contacts retrieved" message
-        if(!startup) 
-        document.getElementById("searchResult").innerHTML = "Contacts(s) have been retrieved";
-				let jsonObject = JSON.parse( xhr.responseText );
-        // Get Contact Div
-        let listBox = document.getElementById("contactList");
-        console.log(jsonObject.results);
-        // If the User has contacts, add them to the div's inner HTML
-        if(jsonObject.results == undefined)
-        {
-          listBox.innerHTML = "No Contacts Found for Current User.";
-        }
-        else
-        {
-          let contactLength = jsonObject.results.length;
-          for( let i=0; i<jsonObject.results.length; i++ )
-  				{
-            let current = jsonObject.results[i];
-  					//console.log(current);
-            // Adds the beginning of the contact with all the data, then eddit button, then delete button
-            listBox.innerHTML += '<a href="#"> '+current.FirstName+' '+current.LastName;
-            listBox.innerHTML += '<button type="button" id="editButton" class="buttons" onclick="doSendToEdit();"> Edit </button>';
-            listBox.innerHTML += '<button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete </button> </a>';
-  					//contactList += jsonObject.results[i];
-  					/*if( i < jsonObject.results.length - 1 )
-  					{
-  						console.log(jsonObject.results[i]);
-  					}*/
-  				}
-        }
-        //document.getElementsByTagName("p")[0].innerHTML = contactList;
+			// If the function is run when the page loads, don't display "contacts retrieved" message
+			if(!startup) 
+			{
+				document.getElementById("searchResult").innerHTML = "Contacts(s) have been retrieved";
+			}
+			
+			let jsonObject = JSON.parse( xhr.responseText );
+
+			// Get Contact Div
+			let listBox = document.getElementById("contactList");
+			listBox.innerHTML = "";
+			
+			console.log("List of contacts");
+			console.log(jsonObject.results);
+			
+			// If the User has contacts, add them to the div's inner HTML
+			if(jsonObject.results == undefined)
+			{
+				listBox.innerHTML = "No Contacts Found for Current User.";
+			}
+			else
+			{
+				for( let i=0; i<jsonObject.results.length; i++ )
+					{
+						let current = jsonObject.results[i];
+						userIds[i] = current.ID;
+
+						//console.log(current.ID);
+						//console.log(userIds);
+						// Adds the beginning of the contact with all the data, then eddit button, then delete button
+						listBox.innerHTML += '<a href="#" id = "' + i + '"> '+current.FirstName+' '+current.LastName;
+						listBox.innerHTML += '<button type="button" id="editButton" class="buttons" onclick="doSendToEdit();"> Edit </button>';
+						listBox.innerHTML += '<button type="button" id="deleteButton" class="buttons" onclick="deleteContact(' + i + ');"> Delete </button> </a>';
+					}
+				}
+			//document.getElementsByTagName("p")[0].innerHTML = contactList;
 			}
 		};
 		xhr.send(jsonPayload);
@@ -435,5 +433,42 @@ function searchContact(startup)
 	{
 		document.getElementById("searchResult").innerHTML = err.message;
 	}
-	
+}
+
+function deleteContact(row)
+{
+	let listBox = document.getElementById("contactList");
+	//let name = document.getElementById(row).textContent;
+	if (confirm("Are you sure you want to delete this contact?"))
+	{
+		tmp = {
+			id: userIds[row],
+		};
+
+		let jsonPayload = JSON.stringify( tmp );
+
+		let url = urlBase + '/DeleteContact.' + extension;
+
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", url, true);
+		xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+		try
+		{
+			xhr.onreadystatechange = function() 
+			{
+				if (this.readyState == 4 && this.status == 200) 
+				{
+					console.log("Delete contact");
+					console.log(jsonPayload); //Debug
+		
+					saveCookie();
+					searchContact(false);
+				}
+			};
+		xhr.send(jsonPayload);
+		}catch(err)
+		{
+			document.getElementById("searchResult").innerHTML = err.message;
+		}	
+	}
 }
