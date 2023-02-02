@@ -399,6 +399,10 @@ function searchContact(startup)
         // If the function is run when the page loads, don't display "contacts retrieved" message
         if(!startup) 
         document.getElementById("searchResult").innerHTML = "Contacts(s) have been retrieved";
+        
+        if(!startup) 
+        document.getElementById("contactList").innerHTML = "";
+        
 				let jsonObject = JSON.parse( xhr.responseText );
         // Get Contact Div
         let listBox = document.getElementById("contactList");
