@@ -13,6 +13,8 @@
 	document.addEventListener('DOMContentLoaded', function() 
 	{
 		readCookie();
+   // Function run with true to tell js that it's on startup
+   searchContact(true);
 	}, false);
 	</script>
 </head>
@@ -30,38 +32,18 @@
 <div class="searchbar">
     <form>
         <input type="text" id = "searchText" placeholder="Name">
-        <input type="button" id="searchButton" onclick ="searchContact()" value = 'Search'>
+        <!--Function run with false to tell .js that it's not run on startup-->
+        <input type="button" id="searchButton" onclick ="searchContact(false)" value = 'Search'>
         <input type="button" id="addContactButton" onclick="location.href = 'addContact.html';" value = 'Add Contact'>
         <span id="searchResult"></span>
     </form>
 </div>
 
-<div class="contact-list">
+<div class="contact-list" id="contactList">
+    <!-- Example Contact A tag
     <a href="#"> ID name
             <button type="button" id="editButton" class="buttons" onclick="doSendToEdit();"> Edit </button> 
-            <button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete </button> </a>
-    <a href="#"> ID name
-            <button type="button" id="editButton" class="buttons" onclick="doSendToEdit();"> Edit </button> 
-            <button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete </button> </a>
-    <a href="#"> ID name
-            <button type="button" id="editButton" class="buttons" onclick="doSendToEdit();"> Edit </button> 
-            <button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete </button> </a>
-    <a href="#"> ID name
-            <button type="button" id="editButton" class="buttons" onclick="doSendToEdit();"> Edit </button> 
-            <button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete </button> </a>
-    <a href="#"> ID name
-            <button type="button" id="editButton" class="buttons" onclick="doSendToEdit();"> Edit </button> 
-            <button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete </button> </a>
-    <a href="#"> ID name
-            <button type="button" id="editButton" class="buttons" onclick="doSendToEdit();"> Edit </button> 
-            <button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete </button> </a>  
-    <a href="#"> ID name
-            <button type="button" id="editButton" class="buttons" onclick="doSendToEdit();"> Edit </button> 
-            <button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete </button> </a>
-    <a href="#"> ID name
-            <button type="button" id="editButton" class="buttons" onclick="doSendToEdit();"> Edit </button> 
-            <button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete </button> </a>
-
+            <button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete </button> </a>-->
         </div>
 
 </body>

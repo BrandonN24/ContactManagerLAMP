@@ -52,6 +52,8 @@ function doLogin()
 				lastName = jsonObject.lastName;
 
 				saveCookie();
+				searchContact();
+
 	
 				window.location.href = "contacts.html";
 			}
@@ -178,12 +180,12 @@ function addContact()
 	}
 }
 
-function deleteContact()
+function deleteContact(contactID)
 {
 	
 }
 
-function editContact()
+function editContact(contactID)
 {
 
 }
@@ -368,13 +370,14 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function searchContact()
+// Startup is a flag boolean that tells the funciton if it's running when the page loads
+// Only used to prevent the "Contacts retrieved" message on startup. 
+function searchContact(startup)
 {
 	//document.getElementById("colorSearchResult").innerHTML = "";
 	
 	//let contactList = "";
-
-	let tmp = 
+  let tmp = 
 	{
 		userId:userId,
 		search:""
@@ -393,19 +396,37 @@ function searchContact()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("searchResult").innerHTML = "Contacts(s) has been retrieved";
+        // If the function is run when the page loads, don't display "contacts retrieved" message
+        if(!startup) 
+        document.getElementById("searchResult").innerHTML = "Contacts(s) have been retrieved";
 				let jsonObject = JSON.parse( xhr.responseText );
-				
-				for( let i=0; i<jsonObject.results.length; i++ )
-				{
-					console.log(jsonObject.results[i]);
-					//contactList += jsonObject.results[i];
-					/*if( i < jsonObject.results.length - 1 )
-					{
-						console.log(jsonObject.results[i]);
-					}*/
-				}
-				//document.getElementsByTagName("p")[0].innerHTML = contactList;
+        // Get Contact Div
+        let listBox = document.getElementById("contactList");
+        console.log(jsonObject.results);
+        // If the User has contacts, add them to the div's inner HTML
+        if(jsonObject.results == undefined)
+        {
+          listBox.innerHTML = "No Contacts Found for Current User.";
+        }
+        else
+        {
+          let contactLength = jsonObject.results.length;
+          for( let i=0; i<jsonObject.results.length; i++ )
+  				{
+            let current = jsonObject.results[i];
+  					//console.log(current);
+            // Adds the beginning of the contact with all the data, then eddit button, then delete button
+            listBox.innerHTML += '<a href="#"> '+current.FirstName+' '+current.LastName;
+            listBox.innerHTML += '<button type="button" id="editButton" class="buttons" onclick="doSendToEdit();"> Edit </button>';
+            listBox.innerHTML += '<button type="button" id="deleteButton" class="buttons" onclick="doDelete();"> Delete </button> </a>';
+  					//contactList += jsonObject.results[i];
+  					/*if( i < jsonObject.results.length - 1 )
+  					{
+  						console.log(jsonObject.results[i]);
+  					}*/
+  				}
+        }
+        //document.getElementsByTagName("p")[0].innerHTML = contactList;
 			}
 		};
 		xhr.send(jsonPayload);
