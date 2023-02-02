@@ -29,9 +29,10 @@
 
 <div class="searchbar">
     <form>
-        <input type="text" placeholder="Name">
-        <input type="button" id="searchButton" onclick ="console.log('Button pressed');" value = 'Search'>
+        <input type="text" id = "searchText" placeholder="Name">
+        <input type="button" id="searchButton" onclick ="searchContact()" value = 'Search'>
         <input type="button" id="addContactButton" onclick="location.href = 'addContact.html';" value = 'Add Contact'>
+        <span id="searchResult"></span>
     </form>
 </div>
 
