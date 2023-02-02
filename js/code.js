@@ -100,6 +100,12 @@ function doRegister()
 	{
 		xhr.onreadystatechange = function() 
 		{
+			if (this.status == 409)
+			{
+				document.getElementById("registerResult").innerHTML = 
+					"This username is taken";
+				return;
+			}
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				console.log(jsonPayload);
@@ -170,6 +176,16 @@ function addContact()
 	{
 		document.getElementById("addContactResult").innerHTML = err.message;
 	}
+}
+
+function deleteContact()
+{
+	
+}
+
+function editContact()
+{
+
 }
 
 function validLogin(logUser, logPass)
@@ -352,17 +368,21 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function searchColor()
+function searchContact()
 {
-	let srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
+	//document.getElementById("colorSearchResult").innerHTML = "";
 	
-	let colorList = "";
+	//let contactList = "";
 
-	let tmp = {search:srch,userId:userId};
+	let tmp = 
+	{
+		userId:userId,
+		search:""
+	};
+	console.log(userId);
 	let jsonPayload = JSON.stringify( tmp );
 
-	let url = urlBase + '/SearchColors.' + extension;
+	let url = urlBase + '/SearchContacts.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -373,26 +393,26 @@ function searchColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
+				document.getElementById("searchResult").innerHTML = "Contacts(s) has been retrieved";
 				let jsonObject = JSON.parse( xhr.responseText );
 				
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{
-					colorList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
+					console.log(jsonObject.results[i]);
+					//contactList += jsonObject.results[i];
+					/*if( i < jsonObject.results.length - 1 )
 					{
-						colorList += "<br />\r\n";
-					}
+						console.log(jsonObject.results[i]);
+					}*/
 				}
-				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
+				//document.getElementsByTagName("p")[0].innerHTML = contactList;
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
+		document.getElementById("searchResult").innerHTML = err.message;
 	}
 	
 }
