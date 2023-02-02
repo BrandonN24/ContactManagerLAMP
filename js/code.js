@@ -377,9 +377,14 @@ function searchContact(startup)
 	//document.getElementById("colorSearchResult").innerHTML = "";
 	
 	//let contactList = "";
-  
-  let searchFind = document.getElementById('searchText').value
-  
+ 
+  let searchFind = "";
+  element = document.getElementById('searchText');
+  if (element != null) 
+  {
+    searchFind = element.value;
+  }
+
   let tmp = 
 	{
 		userId:userId,
@@ -401,7 +406,7 @@ function searchContact(startup)
 			{
         // If the function is run when the page loads, don't display "contacts retrieved" message
         if(!startup) 
-        document.getElementById("searchResult").innerHTML = "Contacts(s) have been retrieved";
+        document.getElementById("searchResult").innerHTML = "Successfully retrieved contact(s)";
         
         if(!startup) 
         document.getElementById("contactList").innerHTML = "";
