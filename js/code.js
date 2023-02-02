@@ -181,11 +181,6 @@ function addContact()
 	}
 }
 
-function editContact(contactID)
-{
-
-}
-
 function validLogin(logUser, logPass)
 {
 	let logUserErr = logPassErr = false;
@@ -482,4 +477,9 @@ function deleteContact(row)
 			document.getElementById("searchResult").innerHTML = err.message;
 		}	
 	}
+}
+
+function editContact(contactID)
+{
+
 }
