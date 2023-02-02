@@ -23,13 +23,13 @@
     // If the second character of LastName is % then there was no input supplied for the last name which means the supplied name could be either a first or last name
     if($LastName[1] == '%')
     {
-      $stmt = $conn->prepare("select * from Contacts where FirstName like ? or LastName like ? and UserID=?");
+      $stmt = $conn->prepare("select * from Contacts where (FirstName like ? or LastName like ?) and UserID=?");
       $stmt->bind_param("ssi", $FirstName, $FirstName, $inData["userId"]);
 		  $stmt->execute();
     }
     else
     {
-      $stmt = $conn->prepare("select * from Contacts where FirstName like ? and LastName like ? and UserID=?");
+      $stmt = $conn->prepare("select * from Contacts where (FirstName like ? and LastName like ?) and UserID=?");
       $stmt->bind_param("ssi", $FirstName, $LastName, $inData["userId"]);
   		$stmt->execute();
     }
