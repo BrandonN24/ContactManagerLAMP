@@ -370,10 +370,21 @@ function doLogout()
 // Only used to prevent the "Contacts retrieved" message on startup. 
 function searchContact(startup)
 {
+	//document.getElementById("colorSearchResult").innerHTML = "";
+	
+	//let contactList = "";
+ 
+  let searchFind = "";
+  element = document.getElementById('searchText');
+  if (element != null) 
+  {
+    searchFind = element.value;
+  }
+
   let tmp = 
 	{
 		userId:userId,
-		search:""
+		search:searchFind
 	};
 	console.log(userId);
 	let jsonPayload = JSON.stringify( tmp );
