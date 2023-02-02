@@ -377,10 +377,13 @@ function searchContact(startup)
 	//document.getElementById("colorSearchResult").innerHTML = "";
 	
 	//let contactList = "";
+  
+  let searchFind = document.getElementById('searchText').value
+  
   let tmp = 
 	{
 		userId:userId,
-		search:""
+		search:searchFind
 	};
 	console.log(userId);
 	let jsonPayload = JSON.stringify( tmp );
