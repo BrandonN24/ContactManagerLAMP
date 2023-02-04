@@ -275,7 +275,7 @@ function validateNewContact(newfName, newlName, newPhone, newEmail)
 	if (!validateEmail(newEmail))
 	{
 		console.log("Invalid email");
-		document.getElementById("addContactResult").innerHTML = "Invalid Email";
+		//document.getElementById("addContactResult").innerHTML = "Invalid Email";
 		validNewEmailErr = true;
 	}
 	console.log(Boolean(newfNameErr || newlNameErr || newPhoneErr || newEmailErr || validNewEmailErr));
@@ -316,7 +316,7 @@ function saveCookie()
 	let minutes = 20;
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" +  userId + ";expires=" + date.toGMTString();
 }
 
 function readCookie()
@@ -420,13 +420,13 @@ function searchContact(startup)
 				for( let i=0; i<jsonObject.results.length; i++ )
 					{
 						let current = jsonObject.results[i];
-						userIds[i] = current.ID;
+						userIds[i] = current;
 
 						//console.log(current.ID);
 						//console.log(userIds);
 						// Adds the beginning of the contact with all the data, then eddit button, then delete button
-						listBox.innerHTML += '<a href="#" id = "' + i + '"> '+current.FirstName+' '+current.LastName;
-						listBox.innerHTML += '<button type="button" id="editButton" class="buttons" onclick="doSendToEdit();"> Edit </button>';
+						listBox.innerHTML += '<a href="#" id = "' + i + '"> '+current.FirstName+' '+current.LastName+' '+current.Email+' '+current.Phone;
+						listBox.innerHTML += '<button type="button" id="editButton" class="buttons" onclick="sendToEditContact(' + i + ');"> Edit </button>';
 						listBox.innerHTML += '<button type="button" id="deleteButton" class="buttons" onclick="deleteContact(' + i + ');"> Delete </button> </a>';
 					}
 				}
@@ -441,14 +441,28 @@ function searchContact(startup)
 	}
 }
 
+function sendToEditContact(row)
+{
+	let contactIdString = userIds[row].ID;
+	let contIDint = contactIdString.toString();
+	localStorage.setItem("contactID", contIDint);
+
+	location.href = "editContact.html";
+}
+
+function btnEditContact()
+{
+	console.log(localStorage.getItem("contactID"));
+	editContact(document.getElementById("FName").value, document.getElementById("LName").value
+		, document.getElementById("PNumber").value, document.getElementById("EAddress").value, localStorage.getItem("contactID"));
+}
+
 function deleteContact(row)
 {
-	let listBox = document.getElementById("contactList");
-	//let name = document.getElementById(row).textContent;
 	if (confirm("Are you sure you want to delete this contact?"))
 	{
 		tmp = {
-			id: userIds[row],
+			id: userIds[row].ID
 		};
 
 		let jsonPayload = JSON.stringify( tmp );
@@ -479,7 +493,48 @@ function deleteContact(row)
 	}
 }
 
-function editContact(contactID)
+function editContact(first, last, phone, email, cId)
 {
 
+	let tmp = {
+		id: cId,
+		firstName: first,
+		lastName: last,
+		phone: phone,
+		email: email
+	}
+
+	if (validateNewContact(first, last, phone, email))
+	{
+		document.getElementById("editContactResult").innerHTML = "Invalid Edited Contact";
+		return;
+	}
+
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/EditContact.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				console.log("Edit Contact");
+				console.log(jsonPayload); //Debug
+				
+				location.href = "contacts.html";
+
+				saveCookie();
+				searchContact(false);
+			}
+		};
+	xhr.send(jsonPayload);
+	}catch(err)
+	{
+		document.getElementById("editContactResult").innerHTML = err.message;
+	}	
 }
