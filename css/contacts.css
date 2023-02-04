@@ -1,50 +1,52 @@
 body{
     position: relative;
     margin: 0 auto 100px;
-    width: 1440px;
-    height: 1024px;
     background: linear-gradient(180deg, #75E1BB 0%, #1A2F2B 100%);
-    background-position:fixed; 
-    }
+    background-position: top center; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.rightnav {
+    width: 86%;
+    text-align: right;
+}
 
 nav{
-    margin: 0 auto 100px;
+    position: relative;
     display: flex;
     background-color: #238A71;
     padding:5px;
+    width:100%;
 }
 
-nav Button{
+nav button{
     position: relative;
-    left: 1047px;
-    bottom: 0px;
-    width: 152px;
-    height: 61px;
-    display: inline-block;
+    right: 0px;
+    left: 0px;
+    bottom: -2px;
+    width: 158px;
+    height: 60px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
     font-size: 36px;
-    background: #75E1BB;
-    color: black;
-    border-radius: 20px;
     box-shadow: 0 0 20px 0 rgb(0, 0, 0), 0 5px 5px 0 rgba(0, 0, 0, 0.521);
-}
-
-nav button:hover{
-    background: #02532d;
-    color: #FFFFFF;
-
 }
     
 h1{
-    margin: 0 auto 10px;
+    margin: 0 auto;
     font-family: 'Lato';
     font-style: normal;
     font-weight: 400;
     font-size: 64px;
     line-height: 77px;
     text-align: center;
-        
+    padding:25px;
     color: #000000;
-    }
+}
+
 
 .searchbar{
     margin: 0 auto;
@@ -77,6 +79,7 @@ form input{
 #searchButton:hover{
     background-color: #75E1BB;
     color: black;
+    cursor:pointer;
 }
 
 #addContactButton{
@@ -93,11 +96,12 @@ form input{
 #addContactButton:hover{
     background-color: #75E1BB;
     color: black;
+    cursor:pointer;
 }
 
 .contact-list{
     background: #238A71;;
-    margin: 0 auto;
+    margin: 0 auto 100px;
     width: 1000px;
     height: 500px;
     font-size: 40px;
@@ -112,13 +116,8 @@ form input{
     display: block;
     padding: 18px;
     text-decoration: none;
-    border: 8px solid #238A71;;
+    border: 8px solid #238A71;
     border-radius: 15px;
-}
-
-.contact-list a:hover {
-    background-color:  #0a5238;
-    color: black;
 }
 
 button{
@@ -128,10 +127,12 @@ button{
     font-family: 'Lato';
     color: white;
     background:  #238A71;
-    border-radius: 15px;
+    border-radius: 20px;
+    cursor:pointer;
 }
 
 button:hover {
     background-color: #75E1BB;
     color: black;
+    cursor:pointer;
 }
