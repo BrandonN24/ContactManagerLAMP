@@ -1,5 +1,5 @@
 body{
-    background-image: url('../images/background.jpg');
+    background-image: url('../images/background.webp');
     margin: 0 auto 100px;
     background-position: top center; 
     background-size: cover;
@@ -35,21 +35,25 @@ nav button{
 }
 
 .loginButton{
-    background: #72CDD2;
+    background: #75E1BB;
     border-radius: 20px;
+    cursor:pointer;
 }
 
 .loginButton:hover {
-    background: #0835af;
+    background: #02532d;
     color: #FFFFFF;
+    cursor:pointer;
 }
 
 .registerButton{
     background: #75E1BB;
     border-radius: 20px;
+    cursor:pointer;
 }
 
 .registerButton:hover {
     background: #02532d;
     color: #FFFFFF;
+    cursor:pointer;
 }
