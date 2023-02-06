@@ -32,7 +32,15 @@ nav button{
     font-style: normal;
     font-weight: 400;
     font-size: 36px;
+    background: #75E1BB;
+    border-radius: 20px;
+    color: #000000;
     box-shadow: 0 0 20px 0 rgb(0, 0, 0), 0 5px 5px 0 rgba(0, 0, 0, 0.521);
+}
+
+nav button:hover {
+    background: #02532d;
+    color: #FFFFFF;
 }
 
 h1{
@@ -83,26 +91,27 @@ button{
     font-size: 36px;
     line-height: 55px;
     text-align: center;
-    background: #75E1BB;
+    background: #60310B;
     border-radius: 20px;
-    color: #000000;
+    color: #FFFFFF;
     box-shadow: 0 0 20px 0 rgb(0, 0, 0), 0 5px 5px 0 rgba(0, 0, 0, 0.521);
 }
     
 button:hover {
-    background: #02532d;
-    color: #FFFFFF;
+    background: #C0D8E0;
+    color: #000000;
     cursor:pointer;
 }
 
 #registerResult{
       position: absolute;
       transform: translate(165px, 54px);
+      width: 180px;
       padding-left: 32px;
 			margin: 10px 0px;
 			background-repeat: no-repeat;
 			background-position: 5px left;
-      font-size: 30px;
+      font-size: 20px;
       text-align: center;
       color: #FFFFFF;
       background-image: url('../images/GnyDvKN.png');

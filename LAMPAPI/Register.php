@@ -33,7 +33,7 @@
 		else{
 			$stmt->close();
 			$conn->close();
-			http_response_code(409);
+      http_response_code(409);
 			returnWithError("Username taken");
 		}
 

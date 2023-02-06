@@ -78,7 +78,7 @@ function doRegister()
 	if (validRegister(firstName, lastName, userName, password))
 	{
 		//invalid login empty text fields
-		document.getElementById("registerResult").innerHTML = "Invalid Login";
+		document.getElementById("registerResult").innerHTML = "Invalid - Password must contain 8 - 16 characters, at least one uppercase and one digit";
 		return;
 	}
 
@@ -114,11 +114,17 @@ function doRegister()
 				console.log(jsonPayload);
 				let jsonObject = JSON.parse( xhr.responseText );
 				userId = jsonObject.id;
-				document.getElementById("regResult").innerHTML = "Register Complete";
+				document.getElementById("regResult").innerHTML = "Register Complete - Redirecting to Login...";
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 	
 				saveCookie();
+        
+        window.setTimeout(function(){
+
+        window.location.href = "login.html";
+
+        }, 2000);
 			}
 		};
 		xhr.send(jsonPayload);
@@ -170,7 +176,12 @@ function addContact()
 				document.getElementById("addContactResult").innerHTML = "Added Contact";
 	
 				saveCookie();
+        
+        window.setTimeout(function(){
 
+        window.location.href = "contacts.html";
+
+        }, 2000);
 			}
 		};
 		xhr.send(jsonPayload);
@@ -423,11 +434,11 @@ function searchContact(startup)
 						userIds[i] = current;
 
 						//console.log(current.ID);
-						//console.log(userIds);
-						// Adds the beginning of the contact with all the data, then eddit button, then delete button
+						console.log(userIds);
+						// Adds the beginning of the contact with all the data, then edit button, then delete button
 						listBox.innerHTML += '<a href="#" id = "' + i + '"> '+current.FirstName+' '+current.LastName+' '+current.Email+' '+current.Phone;
-						listBox.innerHTML += '<button type="button" id="editButton" class="buttons" onclick="sendToEditContact(' + i + ');"> Edit </button>';
-						listBox.innerHTML += '<button type="button" id="deleteButton" class="buttons" onclick="deleteContact(' + i + ');"> Delete </button> </a>';
+						listBox.innerHTML += '<button type="button" id="editButton" class="buttons" onclick="sendToEditContact(' + current.ID + ');"> Edit </button>';
+						listBox.innerHTML += '<button type="button" id="deleteButton" class="buttons" onclick="deleteContact(' + current.ID + ');"> Delete </button> </a>';
 					}
 				}
 			//document.getElementsByTagName("p")[0].innerHTML = contactList;
@@ -443,11 +454,51 @@ function searchContact(startup)
 
 function sendToEditContact(row)
 {
-	let contactIdString = userIds[row].ID;
-	let contIDint = contactIdString.toString();
+	//let contactIdString = userIds[row].ID;
+	let contIDint = row.toString();
 	localStorage.setItem("contactID", contIDint);
 
-	location.href = "editContact.html";
+	location.href = ("editContact.html?id="+row);
+  //alert(row);   
+}
+
+function loadContent()
+{
+  let addr = new URL(window.location.href);
+  let iden = parseInt(addr.searchParams.get('id'));
+  let tmp = 
+	{
+		id:iden
+	};
+	let jsonPayload = JSON.stringify( tmp );
+
+	let url = urlBase + '/LoadEditText.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+			let jsonObject = JSON.parse( xhr.responseText );
+
+			let current = jsonObject.results[0];
+			document.getElementById('FName').value=current.FirstName;
+      document.getElementById('LName').value=current.LastName;
+      document.getElementById('PNumber').value=current.Phone;
+      document.getElementById('EAddress').value=current.Email;
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		//document.getElementById("searchResult").innerHTML = err.message;
+   alert('bad time');
+	}
 }
 
 function btnEditContact()
@@ -459,12 +510,13 @@ function btnEditContact()
 
 function deleteContact(row)
 {
+
 	if (confirm("Are you sure you want to delete this contact?"))
 	{
 		tmp = {
-			id: userIds[row].ID
+			id: row
 		};
-
+    console.log(row);
 		let jsonPayload = JSON.stringify( tmp );
 
 		let url = urlBase + '/DeleteContact.' + extension;

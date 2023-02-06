@@ -32,7 +32,14 @@ nav button{
     font-style: normal;
     font-weight: 400;
     font-size: 36px;
+    background:  #75E1BB;
+    color: #000000;
     box-shadow: 0 0 20px 0 rgb(0, 0, 0), 0 5px 5px 0 rgba(0, 0, 0, 0.521);
+}
+
+nav button:hover{
+    background-color: #02532d;
+    color: #FFFFFF;
 }
     
 h1{
@@ -72,12 +79,12 @@ form input{
     border-radius: 15px;
     font-family: 'Lato';
     color: white;
-    background:  #238A71;
+    background:  #60310B;
     box-shadow: 0 0 20px 0 rgb(0, 0, 0), 0 5px 5px 0 rgba(0, 0, 0, 0.521);
 }
 
 #searchButton:hover{
-    background-color: #75E1BB;
+    background-color: #C0D8E0;
     color: black;
     cursor:pointer;
 }
@@ -89,12 +96,12 @@ form input{
     border-radius: 15px;
     font-family: 'Lato';
     color: white;
-    background:  #238A71;
+    background:  #60310B;
     box-shadow: 0 0 20px 0 rgb(0, 0, 0), 0 5px 5px 0 rgba(0, 0, 0, 0.521);
 }
 
 #addContactButton:hover{
-    background-color: #75E1BB;
+    background-color: #C0D8E0;
     color: black;
     cursor:pointer;
 }
@@ -126,13 +133,13 @@ button{
     font-size: 30px;
     font-family: 'Lato';
     color: white;
-    background:  #238A71;
+    background:  #60310B;
     border-radius: 20px;
     cursor:pointer;
 }
 
 button:hover {
-    background-color: #75E1BB;
+    background-color: #C0D8E0;
     color: black;
     cursor:pointer;
 }
