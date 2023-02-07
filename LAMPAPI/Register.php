@@ -14,7 +14,7 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("select Login from Users WHERE Login = ?");
+		$stmt = $conn->prepare("select Login from Users WHERE Login = BINARY ?");
 		$stmt->bind_param("s", $username);
 		$stmt->execute();
 
